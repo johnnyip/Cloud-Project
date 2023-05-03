@@ -1,12 +1,41 @@
 const axios = require('axios');
+const kafka = require('kafka-node');
+const client = new kafka.KafkaClient({ kafkaHost: 'localhost:9092' });
+
+const topicName = "test-topic"
+const admin = new kafka.Admin(client);
+
+const sendMessage = require('./sendMessage');
+
+const topicsToCreate = [
+    {
+        topic: topicName,
+        partitions: 1,
+        replicationFactor: 1,
+    },
+];
+
+
+admin.createTopics(topicsToCreate, (err, result) => {
+    if (err) {
+        console.error('Error creating topic:', err);
+    } else {
+        console.log(`Topic "${topicName}" created successfully`);
+    }
+    client.close();
+});
 
 // Define the function to fetch data from the URL
 async function fetchData(url) {
     try {
-        let response = await axios.get(url);
-
-        response.data.date = new Date()
-        console.log(response.data);
+        const response = await axios.get(url);
+        sendMessage(topicName, JSON.stringify(response.data))
+            .then((data) => {
+                console.log('Message sent:', data);
+            })
+            .catch((err) => {
+                console.error('Error sending message:', err);
+            });
     } catch (error) {
         console.error('Error fetching data:', error.message);
     }

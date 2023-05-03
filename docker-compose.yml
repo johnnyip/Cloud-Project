@@ -3,17 +3,18 @@ version: '3.7'
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:6.2.1
+    ports:
+      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-    volumes:
-      - zookeeper-data:/var/lib/zookeeper/data
-      - zookeeper-log:/var/lib/zookeeper/log
 
   kafka:
     image: confluentinc/cp-kafka:6.2.1
     depends_on:
       - zookeeper
+    ports:
+      - "9092:9092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -22,8 +23,6 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER_DOCKER_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
-    volumes:
-      - kafka-data:/var/lib/kafka/data
 
   kafdrop:
     image: obsidiandynamics/kafdrop
@@ -35,12 +34,7 @@ services:
     ports:
       - "9000:9000"
 
-  # crawler:
-  #   image: johnnyip/cloud-crawler
-  #   depends_on:
-  #     - kafka
-
-volumes:
-  zookeeper-data:
-  zookeeper-log:
-  kafka-data:
+  crawler:
+    image: johnnyip/cloud-crawler
+    depends_on:
+      - kafka
