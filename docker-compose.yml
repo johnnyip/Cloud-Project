@@ -15,6 +15,7 @@ services:
       - zookeeper
     ports:
       - "9092:9092"
+      - "29092:29092"
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
@@ -37,6 +38,6 @@ services:
   crawler:
     image: johnnyip/cloud-crawler
     environment:
-      KAFKA_URL: kafka:9092
+      KAFKA_URL: kafka:29092
     depends_on:
       - kafka
