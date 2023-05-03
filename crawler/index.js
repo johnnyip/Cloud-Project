@@ -1,6 +1,6 @@
 const axios = require('axios');
 const kafka = require('kafka-node');
-const client = new kafka.KafkaClient({ kafkaHost: 'localhost:9092' });
+const client = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_URL !== undefined ? process.env.KAFKA_URL :'localhost:9092' });
 
 const topicName = "test-topic"
 const admin = new kafka.Admin(client);
