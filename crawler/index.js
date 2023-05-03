@@ -45,4 +45,4 @@ async function fetchData(url) {
 const urlToFetch = 'https://data.weather.gov.hk/weatherAPI/smart-lamppost/smart-lamppost.php?pi=DF1020&di=04';
 setInterval(() => {
     fetchData(urlToFetch);
-}, 5000);
+}, 10000);
