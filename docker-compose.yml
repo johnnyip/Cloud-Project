@@ -35,6 +35,11 @@ services:
     ports:
       - "9000:9000"
 
+  # crawler:
+  #   image: johnnyip/cloud-crawler
+  #   depends_on:
+  #     - kafka
+
 volumes:
   zookeeper-data:
   zookeeper-log:
