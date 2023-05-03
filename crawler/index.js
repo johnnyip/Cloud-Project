@@ -7,6 +7,8 @@ const admin = new kafka.Admin(client);
 
 const sendMessage = require('./sendMessage');
 
+console.log("host: "+process.env.KAFKA_URL )
+
 const topicsToCreate = [
     {
         topic: topicName,
