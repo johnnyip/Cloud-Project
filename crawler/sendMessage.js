@@ -1,6 +1,6 @@
 const kafka = require('kafka-node');
 
-const sendMessage = (topicName, message, kafkaHost = 'localhost:9092') => {
+const sendMessage = (topicName, message, kafkaHost = process.env.KAFKA_URL !== undefined ? process.env.KAFKA_URL :'localhost:9092') => {
     return new Promise((resolve, reject) => {
       const client = new kafka.KafkaClient({ kafkaHost });
       const producer = new kafka.Producer(client);
