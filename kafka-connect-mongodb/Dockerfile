@@ -1,5 +1,7 @@
 FROM confluentinc/cp-kafka-connect:latest
 
+# Create the /etc/apt/sources.list.d directory
+RUN mkdir -p /etc/apt/sources.list.d
 
 # Add MongoDB repository
 RUN echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-4.4.list && \
