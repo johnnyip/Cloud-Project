@@ -6,7 +6,7 @@ const topicName = "test-topic"
 const admin = new kafka.Admin(client);
 
 const sendMessage = require('./sendMessage');
-const mongodbInit = require('./mongodb-init');
+const mongodbInit = require('./mongodb');
 
 console.log("host: " + process.env.KAFKA_URL)
 
