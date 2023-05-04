@@ -9,7 +9,7 @@ bash /etc/confluent/docker/run &
 sleep 20
 
 # Deploy the MongoDB Sink Connector
-curl -X POST -H "Content-Type: application/json" -d @/etc/kafka-connect/mongo-sink.json http://localhost:8083/connectors
+curl -X POST -H "Content-Type: application/json" -d @/etc/kafka-connect/mongo-sink.json http://kafka-connect-mongo:8083/connectors
 
 # Wait for the Kafka Connect process to complete
 wait
