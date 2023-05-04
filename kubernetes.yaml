@@ -1,13 +1,14 @@
+---
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: kafka-demo
+  name: kafka
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zookeeper
-  namespace: kafka-demo
+  namespace: kafka
 spec:
   replicas: 1
   selector:
@@ -19,33 +20,19 @@ spec:
         app: zookeeper
     spec:
       containers:
-        - name: zookeeper
-          image: bitnami/zookeeper:latest
-          ports:
-            - containerPort: 2181
-          env:
-            - name: ALLOW_ANONYMOUS_LOGIN
-              value: "yes"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: zookeeper
-  namespace: kafka-demo
-spec:
-  selector:
-    app: zookeeper
-  ports:
-    - protocol: TCP
-      port: 2181
-      targetPort: 2181
-  type: ClusterIP
+      - name: zookeeper
+        image: bitnami/zookeeper:latest
+        ports:
+        - containerPort: 2181
+        env:
+        - name: ALLOW_ANONYMOUS_LOGIN
+          value: "yes"
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kafka
-  namespace: kafka-demo
+  namespace: kafka
 spec:
   replicas: 1
   selector:
@@ -57,73 +44,87 @@ spec:
         app: kafka
     spec:
       containers:
-        - name: kafka
-          image: bitnami/kafka:latest
-          ports:
-            - containerPort: 9092
-          env:
-            - name: ALLOW_PLAINTEXT_LISTENER
-              value: "yes"
-            - name: KAFKA_CFG_ZOOKEEPER_CONNECT
-              value: "zookeeper.kafka-demo.svc.cluster.local:2181"
+      - name: kafka
+        image: bitnami/kafka:latest
+        ports:
+        - containerPort: 9092
+        env:
+        - name: ALLOW_PLAINTEXT_LISTENER
+          value: "yes"
+        - name: KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND
+          value: "true"
+        - name: KAFKA_ADVERTISED_LISTENERS
+          value: PLAINTEXT://kafka.kafka.svc.cluster.local:9092
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-ui
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-ui
+  template:
+    metadata:
+      labels:
+        app: kafka-ui
+    spec:
+      containers:
+      - name: kafka-ui
+        image: provectuslabs/kafka-ui:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
+          value: kafka.kafka.svc.cluster.local:9092
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: zookeeper
+  namespace: kafka
+spec:
+  ports:
+  - port: 2181
+    name: zk-port
+  type: LoadBalancer
+  selector:
+    app: zookeeper
+
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: kafka
-  namespace: kafka-demo
+  namespace: kafka
 spec:
+  ports:
+  - port: 9092
+    name: kafka-port
+  type: LoadBalancer
   selector:
     app: kafka
-  ports:
-    - protocol: TCP
-      port: 9092
-      targetPort: 9092
-  type: ClusterIP
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: kowl
-  namespace: kafka-demo
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: kowl
-  template:
-    metadata:
-      labels:
-        app: kowl
-    spec:
-      containers:
-      - name: kowl
-        image: docker.redpanda.com/redpandadata/console:latest
-        ports:
-        - containerPort: 8080
-        env:
-        - name: KAFKA_BROKERS
-          value: kafka.kafka-demo.svc.cluster.local:9092
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: kowl
-  namespace: kafka-demo
+  name: kafka-ui
+  namespace: kafka
 spec:
-  selector:
-    app: kowl
   ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
-  type: ClusterIP
+  - port: 8080
+    name: kafka-ui-port
+  type: LoadBalancer
+  selector:
+    app: kafka-ui
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: crawler
-  namespace: kafka-demo
+  namespace: kafka
 spec:
   replicas: 1
   selector:
@@ -139,4 +140,4 @@ spec:
           image: johnnyip/cloud-crawler
           env:
             - name: KAFKA_URL
-              value: "kafka.kafka-demo.svc.cluster.local:9092"
+              value: "kafka.kafka.svc.cluster.local:9092"
