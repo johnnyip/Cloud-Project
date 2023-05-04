@@ -18,6 +18,18 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
 
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
@@ -27,6 +39,21 @@ services:
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
     ports:
       - "8080:8080"
+
+  # kafka-connect:
+  #   image: confluentinc/cp-kafka-connect:latest
+  #   depends_on:
+  #     - kafka
+  #   ports:
+  #     - "8083:8083"
+
+  # kafka-connect-mongo:
+  #   image: johnnyip/cloud-kafka-connect-mongodb
+  #   depends_on:
+  #     - kafka
+  #     - mongo
+  #   environment:
+  #     - MONGODB_URI=mongodb://your_mongodb_uri
 
   crawler:
     image: johnnyip/cloud-crawler
