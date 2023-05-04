@@ -6,13 +6,13 @@ sed -i "s|{{MONGODB_URI}}|${MONGODB_URI}|g" /etc/kafka-connect/mongo-sink.json
 bash /etc/confluent/docker/run &
 
 # Wait for Kafka Connect to start, or print the curled message
-while ! curl -s http://kafka-connect-mongo:8083/ | grep -q 'version'; do
+while ! curl -s http://${CONNECT_REST_ADVERTISED_HOST_NAME}:8083/ | grep -q 'version'; do
   echo "Waiting for Kafka Connect to start..."
   sleep 5
 done
 
 # Deploy the MongoDB Sink Connector
-curl -X POST -H "Content-Type: application/json" -d @/etc/kafka-connect/mongo-sink.json http://kafka-connect-mongo:8083/connectors
+curl -X POST -H "Content-Type: application/json" -d @/etc/kafka-connect/mongo-sink.json http://${CONNECT_REST_ADVERTISED_HOST_NAME}:8083/connectors
 
 # Wait for the Kafka Connect process to complete
 wait
