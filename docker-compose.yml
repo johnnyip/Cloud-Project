@@ -47,13 +47,13 @@ services:
   #   ports:
   #     - "8083:8083"
 
-  # kafka-connect-mongo:
-  #   image: johnnyip/cloud-kafka-connect-mongodb
-  #   depends_on:
-  #     - kafka
-  #     - mongo
-  #   environment:
-  #     - MONGODB_URI=mongodb://your_mongodb_uri
+  kafka-connect-mongo:
+    image: johnnyip/cloud-kafka-connect-mongodb:latest
+    depends_on:
+      - kafka
+      - mongo
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017
 
   crawler:
     image: johnnyip/cloud-crawler

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -i "s/{{MONGODB_URI}}/${MONGODB_URI}/g" /etc/kafka-connect/mongo-sink.json
+sed -i "s|{{MONGODB_URI}}|${MONGODB_URI}|g" /etc/kafka-connect/mongo-sink.json
 
 # Initialize MongoDB
 echo "Initializing MongoDB..."
