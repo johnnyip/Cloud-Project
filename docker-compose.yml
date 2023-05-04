@@ -40,13 +40,6 @@ services:
     ports:
       - "8080:8080"
 
-  # kafka-connect:
-  #   image: confluentinc/cp-kafka-connect:latest
-  #   depends_on:
-  #     - kafka
-  #   ports:
-  #     - "8083:8083"
-
   kafka-connect-mongo:
     image: johnnyip/cloud-kafka-connect-mongodb:latest
     depends_on:
