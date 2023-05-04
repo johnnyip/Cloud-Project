@@ -59,9 +59,11 @@ services:
     image: johnnyip/cloud-crawler
     environment:
       - KAFKA_URL=kafka:9092
+      - MONGODB_URL=mongodb://mongodb:27017
     depends_on:
       - kafka
       - mongodb
+      
 
   watchtower:
     image: containrrr/watchtower
