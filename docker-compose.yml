@@ -52,9 +52,13 @@ services:
     depends_on:
       - kafka
       - mongodb
+    ports:
+      - "8083:8083"
     environment:
       - MONGODB_URL=mongodb://mongodb:27017
       - CONNECT_BOOTSTRAP_SERVERS=kafka:9092
+      - CONNECT_REST_ADVERTISED_HOST_NAME=kafka-connect-mongo
+      - CONNECT_REST_ADVERTISED_PORT=8083
 
   crawler:
     image: johnnyip/cloud-crawler
