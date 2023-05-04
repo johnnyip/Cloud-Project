@@ -32,7 +32,12 @@ sudo -i
 minikube start --kubernetes-version=v1.22.0 HTTP_PROXY=https://minikube.sigs.k8s.io/docs/reference/networking/proxy/ --extra-config=apiserver.service-node-port-range=6000-32767 disk=20000MB --vm=true --driver=none
 
 # Download .yaml
-curl -fsSL -o kubernetes.yaml https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+curl -fsSL -o kubernetes.yaml https://raw.githubusercontent.com/johnnyip/Cloud-Project/main/kubernetes.yaml
 
-kubectl apply -f deployment.yaml
+kubectl apply -f kubernetes.yaml
 ```
+
+| Service    | Kafka                              | Kafka-ui       |
+|------------|------------------------------------|----------------|
+| Docker URL | kafka:9092                         | localhost:8080 |
+| K8s URL    | kafka.kafka.svc.cluster.local:9092 | localhost:8080 |
