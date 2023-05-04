@@ -6,7 +6,7 @@
         "topics": "test-topic",
         "connection.uri": "mongodb://mongodb:27017",
         "database": "kafka",
-        "collection": "kafka_demo",
+        "collection": "kafka",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "key.converter.schemas.enable": "false",
