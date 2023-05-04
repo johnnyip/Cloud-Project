@@ -18,7 +18,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
 
-  mongo:
+  mongodb:
     image: mongo:latest
     ports:
       - "27017:27017"
@@ -61,6 +61,7 @@ services:
       - KAFKA_URL=kafka:9092
     depends_on:
       - kafka
+      - mongodb
 
   watchtower:
     image: containrrr/watchtower
