@@ -11,7 +11,8 @@ ENV CONNECT_GROUP_ID=test_group \
     CONNECT_KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter \
     CONNECT_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter \
     CONNECT_INTERNAL_KEY_CONVERTER=org.apache.kafka.connect.json.JsonConverter \
-    CONNECT_INTERNAL_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter
+    CONNECT_INTERNAL_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter \
+    CONNECT_REST_ADVERTISED_HOST_NAME=localhost 
 
 # Copy the custom MongoDB Sink Connector configuration file
 COPY mongo-sink.json /etc/kafka-connect/mongo-sink.json
