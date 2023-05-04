@@ -1,6 +1,12 @@
 [Example Streaming data](https://data.gov.hk/tc-data/dataset/hk-hko-rss-smart-lamppost-weather-data/resource/eae90458-96ef-4b05-9222-b1ee4fff3487)
 
-## Install ans Start scripts
+## Start in Docker
+
+```
+docker compose up
+```
+
+## Install ans Start scripts for kubernetes
 
 ```
 # Install Minikube
@@ -37,7 +43,7 @@ curl -fsSL -o kubernetes.yaml https://raw.githubusercontent.com/johnnyip/Cloud-P
 kubectl apply -f kubernetes.yaml
 ```
 
-| Service    | Kafka                              | Kafka-ui       |
-|------------|------------------------------------|----------------|
-| Docker URL | kafka:9092                         | localhost:8080 |
-| K8s URL    | kafka.kafka.svc.cluster.local:9092 | localhost:8080 |
+| Service    | Kafka                              | Kafka-ui       | mongo-ui       |
+| ---------- | ---------------------------------- | -------------- | -------------- |
+| Docker URL | kafka:9092                         | localhost:8080 | localhost:8081 |
+| K8s URL    | kafka.kafka.svc.cluster.local:9092 | localhost:8080 |                |
