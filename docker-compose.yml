@@ -29,14 +29,14 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_URL: mongodb://mongo:27017/
+      - ME_CONFIG_MONGODB_URL=mongodb://mongo:27017/
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     depends_on:
       - kafka
     environment:
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
     ports:
       - "8080:8080"
 
@@ -53,11 +53,19 @@ services:
       - kafka
       - mongo
     environment:
-      - MONGODB_URI=mongodb://mongo:27017
+      - MONGODB_URL=mongodb://mongo:27017
 
   crawler:
     image: johnnyip/cloud-crawler
     environment:
-      KAFKA_URL: kafka:9092
+      - KAFKA_URL=kafka:9092
     depends_on:
       - kafka
+
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 60
+    environment:
+      - WATCHTOWER_CLEANUP=true

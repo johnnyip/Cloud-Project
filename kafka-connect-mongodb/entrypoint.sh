@@ -1,14 +1,6 @@
 #!/bin/bash
 
-sed -i "s|{{MONGODB_URI}}|${MONGODB_URI}|g" /etc/kafka-connect/mongo-sink.json
-
-# Initialize MongoDB
-echo "Initializing MongoDB..."
-mongo --quiet --uri ${MONGODB_URI} <<EOF
-use kafka;
-db.createCollection("kafka_demo");
-EOF
-echo "MongoDB initialization completed."
+sed -i "s/{{MONGODB_URL}}/${MONGODB_URL}/g" /etc/kafka-connect/mongo-sink.json
 
 # Start Kafka Connect in the background
 /connect-distributed.sh /etc/kafka-connect/connect-distributed.properties &

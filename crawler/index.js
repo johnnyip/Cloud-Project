@@ -6,6 +6,7 @@ const topicName = "test-topic"
 const admin = new kafka.Admin(client);
 
 const sendMessage = require('./sendMessage');
+const mongodbInit = require('./mongodb-init');
 
 console.log("host: "+process.env.KAFKA_URL )
 
@@ -17,7 +18,7 @@ const topicsToCreate = [
     },
 ];
 
-
+mongodbInit();
 admin.createTopics(topicsToCreate, (err, result) => {
     if (err) {
         console.error('Error creating topic:', err);

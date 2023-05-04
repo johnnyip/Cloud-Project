@@ -4,7 +4,7 @@
         "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
         "tasks.max": "1",
         "topics": "your_kafka_topic",
-        "connection.uri": "{{MONGODB_URI}}",
+        "connection.uri": "{{MONGODB_URL}}",
         "database": "your_mongodb_database",
         "collection": "your_mongodb_collection",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
