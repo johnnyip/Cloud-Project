@@ -28,6 +28,31 @@ admin.createTopics(topicsToCreate, (err, result) => {
     client.close();
 });
 
+//Post request with json body, with axois, to deploy sink config
+axios.post('http://kafka-connect-mongo:8083/connectors', {
+    "name": "mongo-sink",
+    "config": {
+        "connector.class": "com.mongodb.kafka.connect.MongoSinkConnector",
+        "tasks.max": "1",
+        "topics": "test_topic",
+        "connection.uri": "mongodb://mongodb:27017",
+        "database": "kafka",
+        "collection": "kafka",
+        "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "key.converter.schemas.enable": "false",
+        "value.converter.schemas.enable": "false"
+    }
+})
+    .then((res) => {
+        console.log(`statusCode: ${res.statusCode}`)
+        console.log(res)
+    })
+    .catch((error) => {
+        console.error(error)
+    })
+
+
 // Define the function to fetch data from the URL
 async function fetchData(url) {
     try {
