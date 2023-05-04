@@ -54,6 +54,7 @@ services:
       - mongodb
     environment:
       - MONGODB_URL=mongodb://mongodb:27017
+      - CONNECT_BOOTSTRAP_SERVERS=kafka:9092
 
   crawler:
     image: johnnyip/cloud-crawler
@@ -63,12 +64,11 @@ services:
     depends_on:
       - kafka
       - mongodb
-      
 
   watchtower:
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 60
+    command: --interval 15
     environment:
       - WATCHTOWER_CLEANUP=true

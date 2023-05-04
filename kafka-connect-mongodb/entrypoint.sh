@@ -3,7 +3,7 @@
 sed -i "s/{{MONGODB_URL}}/${MONGODB_URL}/g" /etc/kafka-connect/mongo-sink.json
 
 # Start Kafka Connect in the background
-/connect-distributed.sh /etc/kafka-connect/connect-distributed.properties &
+bash /etc/confluent/docker/run &
 
 # Wait for Kafka Connect to start
 sleep 20
