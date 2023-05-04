@@ -7,7 +7,10 @@ const uri = process.env.MONGODB_URL !== undefined ? process.env.MONGODB_URL : 'm
 const dbName = 'kafka';
 const collectionName = 'kafka_demo';
 
-async function mongodbInit() {
+const mongodbInit = async () => {
+    console.log('mongodb init')
+    console.log('url: ' + uri)
+
     // Connect to MongoDB
     const client = new MongoClient(uri, { useUnifiedTopology: true });
     await client.connect();
@@ -18,6 +21,12 @@ async function mongodbInit() {
     // Create (or use) a collection
     const collection = db.collection(collectionName);
 
+    const sampleDocument = { message: 'init done' };
+    await collection.insertOne(sampleDocument);
+
+    
+    console.log("mongdb init complete")
+  
     // Close the connection
     await client.close();
 }

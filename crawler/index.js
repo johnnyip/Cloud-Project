@@ -1,6 +1,6 @@
 const axios = require('axios');
 const kafka = require('kafka-node');
-const client = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_URL !== undefined ? process.env.KAFKA_URL :'kafka:9092' });
+const client = new kafka.KafkaClient({ kafkaHost: process.env.KAFKA_URL !== undefined ? process.env.KAFKA_URL : 'kafka:9092' });
 
 const topicName = "test-topic"
 const admin = new kafka.Admin(client);
@@ -8,7 +8,7 @@ const admin = new kafka.Admin(client);
 const sendMessage = require('./sendMessage');
 const mongodbInit = require('./mongodb-init');
 
-console.log("host: "+process.env.KAFKA_URL )
+console.log("host: " + process.env.KAFKA_URL)
 
 const topicsToCreate = [
     {
@@ -19,6 +19,7 @@ const topicsToCreate = [
 ];
 
 mongodbInit();
+
 admin.createTopics(topicsToCreate, (err, result) => {
     if (err) {
         console.error('Error creating topic:', err);
