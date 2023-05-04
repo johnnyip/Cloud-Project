@@ -19,7 +19,4 @@ COPY mongo-sink.json /etc/kafka-connect/mongo-sink.json
 # Copy the custom entrypoint script
 COPY entrypoint.sh /entrypoint.sh
 
-# Make the entrypoint script executable
-RUN chmod +x /entrypoint.sh
-
 ENTRYPOINT ["/entrypoint.sh"]
