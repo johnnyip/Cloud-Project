@@ -44,6 +44,6 @@ kubectl apply -f kubernetes.yaml
 ```
 
 | Service    | Kafka                              | Kafka-ui       | mongo-ui       |
-| ---------- | ---------------------------------- | -------------- | -------------- |
+|------------|------------------------------------|----------------|----------------|
 | Docker URL | kafka:9092                         | localhost:8080 | localhost:8081 |
-| K8s URL    | kafka.kafka.svc.cluster.local:9092 | localhost:8080 |                |
+| K8s URL    | kafka.kafka.svc.cluster.local:9092 | localhost:8080 | localhost:8081 |

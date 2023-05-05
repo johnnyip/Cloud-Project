@@ -19,6 +19,7 @@ spec:
       labels:
         app: zookeeper
     spec:
+      restartPolicy: Always
       containers:
       - name: zookeeper
         image: bitnami/zookeeper:latest
@@ -43,6 +44,7 @@ spec:
       labels:
         app: kafka
     spec:
+      restartPolicy: Always
       containers:
       - name: kafka
         image: bitnami/kafka:latest
@@ -71,6 +73,7 @@ spec:
       labels:
         app: kafka-ui
     spec:
+      restartPolicy: Always
       containers:
       - name: kafka-ui
         image: provectuslabs/kafka-ui:latest
@@ -79,6 +82,105 @@ spec:
         env:
         - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
           value: kafka.kafka.svc.cluster.local:9092
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-connect-mongo
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-connect-mongo
+  template:
+    metadata:
+      labels:
+        app: kafka-connect-mongo
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: kafka-connect-mongo
+          image: johnnyip/cloud-kafka-connect-mongodb
+          env:
+            - name: MONGODB_URL
+              value: "mongodb://mongodb.kafka.svc.cluster.local:27017"
+            - name: CONNECT_BOOTSTRAP_SERVERS
+              value: "kafka.kafka.svc.cluster.local:9092"
+            - name: CONNECT_REST_ADVERTISED_HOST_NAME
+              value: "kafka-connect-mongo.kafka.svc.cluster.local"
+            - name: CONNECT_REST_ADVERTISED_PORT
+              value: "8083"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: mongodb
+          image: mongo:latest
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: mongo-express
+          image: mongo-express
+          env:
+            - name: ME_CONFIG_MONGODB_URL
+              value: "mongodb://mongodb.kafka.svc.cluster.local:27017"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crawler
+  namespace: kafka
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crawler
+  template:
+    metadata:
+      labels:
+        app: crawler
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: crawler
+          image: johnnyip/cloud-crawler
+          env:
+            - name: KAFKA_URL
+              value: "kafka.kafka.svc.cluster.local:9092"
+            - name: MONGODB_URL
+              value: "mongodb://mongodb.kafka.svc.cluster.local:27017"
+
+
 ---
 apiVersion: v1
 kind: Service
@@ -120,24 +222,41 @@ spec:
   selector:
     app: kafka-ui
 ---
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Service
 metadata:
-  name: crawler
+  name: kafka-connect-mongo
   namespace: kafka
 spec:
-  replicas: 1
+  ports:
+  - port: 8083
+    name: kafka-connect-mongo
+  type: LoadBalancer
   selector:
-    matchLabels:
-      app: crawler
-  template:
-    metadata:
-      labels:
-        app: crawler
-    spec:
-      containers:
-        - name: crawler
-          image: johnnyip/cloud-crawler
-          env:
-            - name: KAFKA_URL
-              value: "kafka.kafka.svc.cluster.local:9092"
+    app: kafka-connect-mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: kafka
+spec:
+  ports:
+  - port: 27017
+    name: mongodb
+  type: LoadBalancer
+  selector:
+    app: mongodb
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express
+  namespace: kafka
+spec:
+  ports:
+  - port: 8081
+    name: mongo-express
+  type: LoadBalancer
+  selector:
+    app: mongo-express
