@@ -3,7 +3,7 @@
 sed -i "s|{{MONGODB_URL}}|${MONGODB_URL}|g" /etc/kafka-connect/mongo-sink.json
 
 # Start Kafka Connect in the background
-bash /etc/confluent/docker/run 
+bash /etc/confluent/docker/run &
 
 # Wait for Kafka Connect to start, or print the curled message
 while ! curl -s http://${CONNECT_REST_ADVERTISED_HOST_NAME}:8083/ | grep -q 'version'; do
