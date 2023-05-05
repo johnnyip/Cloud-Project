@@ -230,7 +230,7 @@ metadata:
 spec:
   ports:
   - port: 8083
-    name: kafka-connect-mongo
+    name: kafka-connect-mongo-port
   type: LoadBalancer
   selector:
     app: kafka-connect-mongo
@@ -243,7 +243,7 @@ metadata:
 spec:
   ports:
   - port: 27017
-    name: mongodb
+    name: mongodb-port
   type: LoadBalancer
   selector:
     app: mongodb
@@ -256,7 +256,7 @@ metadata:
 spec:
   ports:
   - port: 8081
-    name: mongo-express
+    name: mongo-express-port
   type: LoadBalancer
   selector:
     app: mongo-express

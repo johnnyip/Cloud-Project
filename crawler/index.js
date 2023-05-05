@@ -17,7 +17,6 @@ const topicsToCreate = [
     { topic: "status_storage", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
 ];
 
-mongodbInit();
 
 admin.createTopics(topicsToCreate, (err, result) => {
     if (err) {
@@ -27,6 +26,8 @@ admin.createTopics(topicsToCreate, (err, result) => {
     }
     client.close();
 });
+
+mongodbInit();
 
 //Post request with json body, with axois, to deploy sink config
 //Loop until not refused
