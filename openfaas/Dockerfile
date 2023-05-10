@@ -1,5 +1,5 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.9.10 as watchdog
-FROM --platform=${TARGETPLATFORM:-linux/amd64} node:12-alpine as ship
+FROM --platform=${TARGETPLATFORM:-linux/amd64} node:16-alpine as ship
 
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
@@ -41,7 +41,7 @@ RUN npm i
 COPY function/ ./
 
 # Run any tests that may be available
-# RUN npm test
+RUN npm test
 
 # Set correct permissions to use non root user
 WORKDIR /home/app/
