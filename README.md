@@ -100,7 +100,7 @@ kubectl get po
 ## Kubectl
 ```
 # Remove deployment
-kubectl delete -f kubernetes.yaml
+kubectl delete -f kubernetes.yml
 
 # Show logs
 kubectl logs <pod name>
