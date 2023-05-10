@@ -16,3 +16,12 @@ ENV CONNECT_GROUP_ID=test_group \
 
 # Expose the Kafka Connect service port
 EXPOSE 8083
+
+# Copy the custom MongoDB Sink Connector configuration file
+COPY http-sink.json /etc/kafka-connect/http-sink.json
+
+# Copy the custom entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+
+
+ENTRYPOINT ["/entrypoint.sh"]
