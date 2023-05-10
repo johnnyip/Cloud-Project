@@ -77,3 +77,23 @@ const urlToFetch = 'https://data.weather.gov.hk/weatherAPI/smart-lamppost/smart-
 setInterval(() => {
     fetchData(urlToFetch);
 }, 10000);
+
+
+// send get request until response is not refused, use while loop
+let isUp = false;
+while (isUp === false) {
+    axios.get('http://localhost:31112/function/openfaas')
+        .then((res) => {
+            console.log(`statusCode: ${res.statusCode}`)
+            console.log(res)
+            isUp = true;
+        })
+        .catch((error) => {
+            console.error(error)
+        })
+    //wait 5 seconds
+    setTimeout(() => {
+        console.log('waiting for openfaas to be up')
+    }, 5000);
+
+}

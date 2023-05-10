@@ -75,30 +75,38 @@ echo $PASSWORD
 ```
 
 # Download .yaml
-curl -fsSL -o kubernetes.yaml https://raw.githubusercontent.com/johnnyip/Cloud-Project/main/kubernetes.yaml
+curl -fsSL -o kubernetes.yml https://raw.githubusercontent.com/johnnyip/Cloud-Project/main/kubernetes.yml
+curl -fsSL -o openfaas.yml https://raw.githubusercontent.com/johnnyip/Cloud-Project/main/openfaas.yml
 
-kubectl apply -f kubernetes.yaml
+kubectl apply -f kubernetes.yml
 faas-cli template pull
 faas-cli deploy -f openfaas.yml
-
-# Remove deployment
-kubectl delete -f kubernetes.yaml
 ```
-
+## Show Status
 ```
 minikube service list
 kubectl get svc
 kubectl get po
 ```
 
+
 | Service    | Kafka                              | Kafka-ui        | mongo-ui        |
 | ---------- | ---------------------------------- | --------------- | --------------- |
 | Docker URL | kafka:9092                         | localhost:8080  | localhost:8081  |
-| K8s URL    | kafka.kafka.svc.cluster.local:9092 | localhost:30000 | localhost:30001 |
+| K8s URL    | kafka.kafka.svc.cluster.local:9092 | <Public_IP>:30000 | <Public_IP>:30001 |
 
 
 
-## OpenFaaS image preparation
+## Remove deployment
 ```
+kubectl delete -f kubernetes.yaml
+```
+
+## OpenFaaS 
+```
+# Image preparation
 faas-cli up -f openfaas.yml
+
+# Show logs
+faas-cli logs openfaas
 ```
