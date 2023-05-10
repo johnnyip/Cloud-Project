@@ -131,52 +131,52 @@ spec:
   selector:
     app: kafka-ui
 ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   name: kafka-connect-mongo
-#   namespace: default
-# spec:
-#   replicas: 1
-#   selector:
-#     matchLabels:
-#       app: kafka-connect-mongo
-#   template:
-#     metadata:
-#       labels:
-#         app: kafka-connect-mongo
-#     spec:
-#       restartPolicy: Always
-#       containers:
-#         - name: kafka-connect-mongo
-#           image: johnnyip/cloud-kafka-connect-mongodb
-#           ports:
-#           - containerPort: 8083
-#           env:
-#             - name: MONGODB_URL
-#               value: "mongodb://mongodb.default.svc.cluster.local:27017"
-#             - name: CONNECT_BOOTSTRAP_SERVERS
-#               value: "kafka.default.svc.cluster.local:9092"
-#             - name: CONNECT_REST_ADVERTISED_HOST_NAME
-#               value: "kafka-connect-mongo.default.svc.cluster.local"
-#             - name: CONNECT_REST_ADVERTISED_PORT
-#               value: "8083"
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: kafka-connect-mongo
-#   namespace: default
-# spec:
-#   ports:
-#   - port: 8083
-#     targetPort: 8083
-#     nodePort: 8083
-#     protocol: TCP
-#     name: kafka-connect-mongo-port
-#   type: NodePort
-#   selector:
-#     app: kafka-connect-mongo
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-connect-mongo
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-connect-mongo
+  template:
+    metadata:
+      labels:
+        app: kafka-connect-mongo
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: kafka-connect-mongo
+          image: johnnyip/cloud-kafka-connect-mongodb
+          ports:
+          - containerPort: 8083
+          env:
+            - name: MONGODB_URL
+              value: "mongodb://mongodb.default.svc.cluster.local:27017"
+            - name: CONNECT_BOOTSTRAP_SERVERS
+              value: "kafka.default.svc.cluster.local:9092"
+            - name: CONNECT_REST_ADVERTISED_HOST_NAME
+              value: "kafka-connect-mongo.default.svc.cluster.local"
+            - name: CONNECT_REST_ADVERTISED_PORT
+              value: "8083"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-connect-mongo
+  namespace: default
+spec:
+  ports:
+  - port: 8083
+    targetPort: 8083
+    nodePort: 8083
+    protocol: TCP
+    name: kafka-connect-mongo-port
+  type: NodePort
+  selector:
+    app: kafka-connect-mongo
 
 ---
 apiVersion: apps/v1
@@ -287,48 +287,48 @@ spec:
               value: "mongodb://mongodb.default.svc.cluster.local:27017"
 
 
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: kafka-connect-http
-  namespace: default
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: kafka-connect-http
-  template:
-    metadata:
-      labels:
-        app: kafka-connect-http
-    spec:
-      restartPolicy: Always
-      containers:
-        - name: kafka-connect-http
-          image: johnnyip/cloud-kafka-connect-http
-          ports:
-          - containerPort: 8083
-          env:
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: kafka-connect-http
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: kafka-connect-http
+#   template:
+#     metadata:
+#       labels:
+#         app: kafka-connect-http
+#     spec:
+#       restartPolicy: Always
+#       containers:
+#         - name: kafka-connect-http
+#           image: johnnyip/cloud-kafka-connect-http
+#           ports:
+#           - containerPort: 8083
+#           env:
 #             - name: CONNECT_BOOTSTRAP_SERVERS
 #               value: "kafka.default.svc.cluster.local:9092"
-            - name: CONNECT_REST_ADVERTISED_HOST_NAME
-              value: "kafka-connect-http.default.svc.cluster.local"
-            - name: CONNECT_REST_ADVERTISED_PORT
-              value: "8084"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: kafka-connect-http
-  namespace: default
-spec:
-  ports:
-  - port: 8083
-    targetPort: 8084
-    nodePort: 8084
-    protocol: TCP
-    name: kafka-connect-http-port
-  type: NodePort
-  selector:
-    app: kafka-connect-http
+#             - name: CONNECT_REST_ADVERTISED_HOST_NAME
+#               value: "kafka-connect-http.default.svc.cluster.local"
+#             - name: CONNECT_REST_ADVERTISED_PORT
+#               value: "8084"
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: kafka-connect-http
+#   namespace: default
+# spec:
+#   ports:
+#   - port: 8083
+#     targetPort: 8084
+#     nodePort: 8084
+#     protocol: TCP
+#     name: kafka-connect-http-port
+#   type: NodePort
+#   selector:
+#     app: kafka-connect-http
