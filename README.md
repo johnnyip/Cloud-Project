@@ -82,12 +82,6 @@ kubectl apply -f kubernetes.yml
 faas-cli template pull
 faas-cli deploy -f openfaas.yml
 ```
-## Show Status
-```
-minikube service list
-kubectl get svc
-kubectl get po
-```
 
 
 | Service    | Kafka                              | Kafka-ui        | mongo-ui        |
@@ -96,6 +90,12 @@ kubectl get po
 | K8s URL    | kafka.kafka.svc.cluster.local:9092 | <Public_IP>:30000 | <Public_IP>:30001 |
 
 
+## Show Status
+```
+minikube service list
+kubectl get svc
+kubectl get po
+```
 
 ## Kubectl
 ```
