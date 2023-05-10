@@ -84,7 +84,7 @@ async function sendRequest() {
     try {
         const res = await axios.get('http://localhost:31112/function/openfaas');
         console.log(`statusCode: ${res.statusCode}`);
-        console.log(res);
+        // console.log(res);
         return;
     } catch (error) {
         console.error(error);
