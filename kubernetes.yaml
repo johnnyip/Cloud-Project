@@ -8,7 +8,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: zookeeper
-  namespace: kafka
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -33,12 +33,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zookeeper
-  namespace: kafka
+  namespace: default
 spec:
   ports:
   - port: 2181
+    targetPort: 2181
+    # nodePort: 32181
+    protocol: TCP
     name: zk-port
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: zookeeper
 ---
@@ -46,7 +49,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kafka
-  namespace: kafka
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -69,18 +72,21 @@ spec:
         - name: KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND
           value: "true"
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://kafka.kafka.svc.cluster.local:9092
+          value: PLAINTEXT://kafka.default.svc.cluster.local:9092
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: kafka
-  namespace: kafka
+  namespace: default
 spec:
   ports:
   - port: 9092
+    targetPort: 9092
+    # nodePort: 9092
+    protocol: TCP
     name: kafka-port
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: kafka
 ---
@@ -88,7 +94,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: kafka-ui
-  namespace: kafka
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -107,71 +113,77 @@ spec:
         - containerPort: 8080
         env:
         - name: KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS
-          value: kafka.kafka.svc.cluster.local:9092
+          value: kafka.default.svc.cluster.local:9092
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: kafka-ui
-  namespace: kafka
+  namespace: default
 spec:
   ports:
   - port: 8080
+    targetPort: 8080
+    nodePort: 30000
+    protocol: TCP
     name: kafka-ui-port
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: kafka-ui
 ---
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: kafka-connect-mongo
-  namespace: kafka
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: kafka-connect-mongo
-  template:
-    metadata:
-      labels:
-        app: kafka-connect-mongo
-    spec:
-      restartPolicy: Always
-      containers:
-        - name: kafka-connect-mongo
-          image: johnnyip/cloud-kafka-connect-mongodb
-          ports:
-          - containerPort: 8083
-          env:
-            - name: MONGODB_URL
-              value: "mongodb://mongodb.kafka.svc.cluster.local:27017"
-            - name: CONNECT_BOOTSTRAP_SERVERS
-              value: "kafka.kafka.svc.cluster.local:9092"
-            - name: CONNECT_REST_ADVERTISED_HOST_NAME
-              value: "kafka-connect-mongo.kafka.svc.cluster.local"
-            - name: CONNECT_REST_ADVERTISED_PORT
-              value: "8083"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: kafka-connect-mongo
-  namespace: kafka
-spec:
-  ports:
-  - port: 8083
-    name: kafka-connect-mongo-port
-  type: LoadBalancer
-  selector:
-    app: kafka-connect-mongo
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: kafka-connect-mongo
+#   namespace: default
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: kafka-connect-mongo
+#   template:
+#     metadata:
+#       labels:
+#         app: kafka-connect-mongo
+#     spec:
+#       restartPolicy: Always
+#       containers:
+#         - name: kafka-connect-mongo
+#           image: johnnyip/cloud-kafka-connect-mongodb
+#           ports:
+#           - containerPort: 8083
+#           env:
+#             - name: MONGODB_URL
+#               value: "mongodb://mongodb.default.svc.cluster.local:27017"
+#             - name: CONNECT_BOOTSTRAP_SERVERS
+#               value: "kafka.default.svc.cluster.local:9092"
+#             - name: CONNECT_REST_ADVERTISED_HOST_NAME
+#               value: "kafka-connect-mongo.default.svc.cluster.local"
+#             - name: CONNECT_REST_ADVERTISED_PORT
+#               value: "8083"
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: kafka-connect-mongo
+#   namespace: default
+# spec:
+#   ports:
+#   - port: 8083
+#     targetPort: 8083
+#     nodePort: 8083
+#     protocol: TCP
+#     name: kafka-connect-mongo-port
+#   type: NodePort
+#   selector:
+#     app: kafka-connect-mongo
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongodb
-  namespace: kafka
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -193,12 +205,15 @@ apiVersion: v1
 kind: Service
 metadata:
   name: mongodb
-  namespace: kafka
+  namespace: default
 spec:
   ports:
   - port: 27017
+    targetPort: 27017
+    # nodePort: 27017
+    protocol: TCP
     name: mongodb-port
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: mongodb
 
@@ -207,7 +222,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mongo-express
-  namespace: kafka
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -226,19 +241,22 @@ spec:
           image: mongo-express
           env:
             - name: ME_CONFIG_MONGODB_URL
-              value: "mongodb://mongodb.kafka.svc.cluster.local:27017"
+              value: "mongodb://mongodb.default.svc.cluster.local:27017"
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: mongo-express
-  namespace: kafka
+  namespace: default
 spec:
   ports:
   - port: 8081
+    targetPort: 8081
+    nodePort: 30001
+    protocol: TCP
     name: mongo-express-port
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: mongo-express
 
@@ -247,7 +265,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: crawler
-  namespace: kafka
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -264,6 +282,16 @@ spec:
           image: johnnyip/cloud-crawler
           env:
             - name: KAFKA_URL
-              value: "kafka.kafka.svc.cluster.local:9092"
+              value: "kafka.default.svc.cluster.local:9092"
             - name: MONGODB_URL
-              value: "mongodb://mongodb.kafka.svc.cluster.local:27017"
+              value: "mongodb://mongodb.default.svc.cluster.local:27017"
+
+---
+# apiVersion: openfaas.com/v1
+# kind: Function
+# metadata:
+#   name: openfaas
+#   namespace: default
+# spec:
+#   name: openfaas
+#   image: openfaas:latest-sy-5511dfb

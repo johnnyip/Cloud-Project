@@ -1,3 +1,7 @@
-
 crawler/node_modules/**
 .DS_Store
+
+template
+build
+.secrets
+openfaas/node_modules/**
