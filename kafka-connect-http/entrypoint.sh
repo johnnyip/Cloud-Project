@@ -4,7 +4,7 @@
 bash /etc/confluent/docker/run &
 
 # Wait for Kafka Connect to start, or print the curled message
-while ! curl -s http://${CONNECT_REST_ADVERTISED_HOST_NAME}:8083/ | grep -q 'version'; do
+while ! curl -s http://${CONNECT_REST_ADVERTISED_HOST_NAME}:8084/ | grep -q 'version'; do
   echo "Waiting for Kafka Connect to start..."
   sleep 5
 done

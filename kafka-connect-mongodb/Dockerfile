@@ -15,6 +15,7 @@ ENV CONNECT_GROUP_ID=test_group \
 
 # Copy the custom MongoDB Sink Connector configuration file
 COPY mongo-sink.json /etc/kafka-connect/mongo-sink.json
+COPY http-sink.json /etc/kafka-connect/http-sink.json
 
 # Copy the custom entrypoint script
 COPY entrypoint.sh /entrypoint.sh

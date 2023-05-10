@@ -13,6 +13,7 @@ done
 
 # Deploy the MongoDB Sink Connector
 curl -X POST -H "Content-Type: application/json" -d @/etc/kafka-connect/mongo-sink.json http://${CONNECT_REST_ADVERTISED_HOST_NAME}:8083/connectors
+curl -X POST -H "Content-Type: application/json" -d @/etc/kafka-connect/http-sink.json http://${CONNECT_REST_ADVERTISED_HOST_NAME}:8083/connectors
 
 # Wait for the Kafka Connect process to complete
 wait

@@ -310,8 +310,8 @@ spec:
           ports:
           - containerPort: 8083
           env:
-            - name: CONNECT_BOOTSTRAP_SERVERS
-              value: "kafka.default.svc.cluster.local:9092"
+#             - name: CONNECT_BOOTSTRAP_SERVERS
+#               value: "kafka.default.svc.cluster.local:9092"
             - name: CONNECT_REST_ADVERTISED_HOST_NAME
               value: "kafka-connect-http.default.svc.cluster.local"
             - name: CONNECT_REST_ADVERTISED_PORT
