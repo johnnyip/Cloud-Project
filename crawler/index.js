@@ -87,7 +87,8 @@ async function sendRequest() {
         // console.log(res);
         return;
     } catch (error) {
-        console.error(error);
+        // console.log("")
+        // console.error(error);
     }
     console.log('waiting for openfaas to be up');
     setTimeout(sendRequest, 5000);
