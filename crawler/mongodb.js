@@ -5,7 +5,7 @@ const uri = process.env.MONGODB_URL !== undefined ? process.env.MONGODB_URL : 'm
 
 // Replace the following with your actual database and collection names
 const dbName = 'kafka';
-const collectionName = 'kafka';
+const collectionName = 'kafka_connect';
 
 const mongodbInit = async () => {
     console.log('mongodb init')

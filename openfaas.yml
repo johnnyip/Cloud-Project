@@ -12,4 +12,4 @@ functions:
       KAFKA_BROKERS: "kafka.default.svc.cluster.local:9092"
       KAFKA_TOPIC: "test_topic"
       MONGO_DB_NAME: "kafka"
-      MONGO_COLLECTION_NAME: "kafka"
+      MONGO_COLLECTION_NAME: "kafka_OpenFaaS"
