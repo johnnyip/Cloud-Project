@@ -80,20 +80,17 @@ setInterval(() => {
 
 
 // send get request until response is not refused, use while loop
-let isUp = false;
-while (isUp === false) {
-    axios.get('http://localhost:31112/function/openfaas')
-        .then((res) => {
-            console.log(`statusCode: ${res.statusCode}`)
-            console.log(res)
-            isUp = true;
-        })
-        .catch((error) => {
-            console.error(error)
-        })
-    //wait 5 seconds
-    setTimeout(() => {
-        console.log('waiting for openfaas to be up')
-    }, 5000);
-
+async function sendRequest() {
+    try {
+        const res = await axios.get('http://localhost:31112/function/openfaas');
+        console.log(`statusCode: ${res.statusCode}`);
+        console.log(res);
+        return;
+    } catch (error) {
+        console.error(error);
+    }
+    console.log('waiting for openfaas to be up');
+    setTimeout(sendRequest, 5000);
 }
+
+sendRequest();
