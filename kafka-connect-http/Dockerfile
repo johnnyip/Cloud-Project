@@ -5,4 +5,4 @@ FROM confluentinc/cp-kafka-connect-base:latest
 RUN confluent-hub install --no-prompt confluentinc/kafka-connect-http:latest
 
 # Expose the Kafka Connect service port
-EXPOSE 8083
+EXPOSE 8084
