@@ -12,12 +12,9 @@ console.log("host: " + process.env.KAFKA_URL)
 
 const topicsToCreate = [
     { topic: topicName, partitions: 1, replicationFactor: 1, },
-    { topic: "config_storage1", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
-    { topic: "offset_storage1", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
-    { topic: "status_storage1", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
-    { topic: "config_storage2", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
-    { topic: "offset_storage2", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
-    { topic: "status_storage2", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
+    { topic: "config_storage", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
+    { topic: "offset_storage", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
+    { topic: "status_storage", partitions: 1, replicationFactor: 1, configEntries: [{ name: 'cleanup.policy', value: 'compact' }] },
 ];
 
 
