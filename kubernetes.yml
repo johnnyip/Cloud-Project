@@ -287,11 +287,40 @@ spec:
               value: "mongodb://mongodb.default.svc.cluster.local:27017"
 
 ---
-# apiVersion: openfaas.com/v1
-# kind: Function
-# metadata:
-#   name: openfaas
-#   namespace: default
-# spec:
-#   name: openfaas
-#   image: openfaas:latest-sy-5511dfb
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-connect-http
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-connect-http
+  template:
+    metadata:
+      labels:
+        app: kafka-connect-http
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: kafka-connect-http
+          image: johnnyip/cloud-kafka-connect-http
+          ports:
+          - containerPort: 8083
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-connect-mongo
+  namespace: default
+spec:
+  ports:
+  - port: 8083
+    targetPort: 8083
+    nodePort: 8083
+    protocol: TCP
+    name: kafka-connect-mongo-port
+  type: NodePort
+  selector:
+    app: kafka-connect-mongo
