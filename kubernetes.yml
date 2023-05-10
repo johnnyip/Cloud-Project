@@ -312,6 +312,4 @@ spec:
           env:
             - name: CONNECT_BOOTSTRAP_SERVERS
               value: "kafka.default.svc.cluster.local:9092"
-            - name: CONNECT_GROUP_ID
-              value: "test_group"
 
