@@ -15,4 +15,4 @@ ENV CONNECT_GROUP_ID=test_group \
     CONNECT_INTERNAL_VALUE_CONVERTER=org.apache.kafka.connect.json.JsonConverter 
 
 # Expose the Kafka Connect service port
-EXPOSE 8084
+EXPOSE 8083
