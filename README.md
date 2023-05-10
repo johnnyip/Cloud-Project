@@ -97,9 +97,13 @@ kubectl get po
 
 
 
-## Remove deployment
+## Kubectl
 ```
+# Remove deployment
 kubectl delete -f kubernetes.yaml
+
+# Show logs
+kubectl logs <pod name>
 ```
 
 ## OpenFaaS 

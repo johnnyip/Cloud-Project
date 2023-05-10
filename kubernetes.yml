@@ -308,3 +308,6 @@ spec:
           image: johnnyip/cloud-kafka-connect-http
           ports:
           - containerPort: 8084
+          env:
+            - name: CONNECT_BOOTSTRAP_SERVERS
+              value: "kafka.default.svc.cluster.local:9092"
