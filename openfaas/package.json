@@ -11,8 +11,6 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.16.2",
-    "kafka-node": "^5.0.0",
-    "mongodb": "^5.3.0"
+    "express": "^4.16.2"
   }
 }
