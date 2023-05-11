@@ -4,7 +4,7 @@
         "connector.class": "io.confluent.connect.http.HttpSinkConnector",
         "tasks.max": "1",
         "topics": "test_topic",
-        "http.api.url": "http://gateway-external.openfaas.svc.cluster.local:31112/function/openfaas",
+        "http.api.url": "http://gateway-external.openfaas.svc.cluster.local:8080/function/openfaas",
         "headers": "Content-Type:application/json",
         "method": "POST",
         "confluent.topic.bootstrap.servers": "kafka.default.svc.cluster.local:9092",
