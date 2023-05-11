@@ -125,8 +125,13 @@ faas-cli deploy -f openfaas.yml
 ## Show Status
 
 ```
+# Show ports
 minikube service list
+
+# Show ports
 kubectl get svc
+
+# Show deployment status
 kubectl get po
 ```
 
