@@ -66,6 +66,7 @@ echo -n $PASSWORD | faas-cli login --username admin --password-stdin
 
 echo $PASSWORD
 
+kubectl create configmap openfaas-password --from-literal=PASSWORD=${PASSWORD}
 ```
 
 
@@ -75,9 +76,9 @@ echo $PASSWORD
 
 # Download .yaml
 curl -fsSL -o kubernetes.yml https://raw.githubusercontent.com/johnnyip/Cloud-Project/main/kubernetes.yml
-curl -fsSL -o openfaas.yml https://raw.githubusercontent.com/johnnyip/Cloud-Project/main/openfaas.yml
-
 kubectl apply -f kubernetes.yml
+
+curl -fsSL -o openfaas.yml https://raw.githubusercontent.com/johnnyip/Cloud-Project/main/openfaas.yml
 faas-cli template pull
 faas-cli deploy -f openfaas.yml
 ```

@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sed -i "s|{{MONGODB_URL}}|${MONGODB_URL}|g" /etc/kafka-connect/mongo-sink.json
+sed -i "s|{{OPENFAAS_PASSWORD}}|${PASSWORD}|g" /etc/kafka-connect/http-sink.json
 
 # Start Kafka Connect in the background
 bash /etc/confluent/docker/run &
