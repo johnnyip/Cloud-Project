@@ -7,7 +7,7 @@
         "http.api.url": "http://gateway-external.openfaas.svc.cluster.local:8080/function/openfaas",
         "http.request.body": "KEY_AND_VALUE",
         "http.request.body.format": "JSON",
-        "headers": "Content-Type:application/json",
+        "headers": "Content-Type:text/plain",
         "method": "POST",
         "confluent.topic.bootstrap.servers": "http://kafka.default.svc.cluster.local:9092",
         "errors.deadletterqueue.topic.replication.factor": "1",
@@ -20,6 +20,5 @@
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "key.converter.schemas.enable": "false",
         "value.converter.schemas.enable": "false"
-
     }
 }

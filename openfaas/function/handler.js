@@ -10,6 +10,7 @@ module.exports = async (event, context) => {
     const message = event.body;
 
     console.log(`Kafka message: ${message}`);
+    console.log(`Kafka message: ${Object.keys(message)}`);
 
     // Connect to MongoDB
     const url = mongoUrl
