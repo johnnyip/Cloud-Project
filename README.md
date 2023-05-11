@@ -43,6 +43,13 @@ docker compose up
 
 If using AWS EC2, make sure greater than 8 GB storage (Recommend: 30 GB)
 
+| Name            | Property                |
+| --------------- | ----------------------- |
+| Instance Type   | m5.large                |
+| OS              | Ubuntu Server 22.04 LTS |
+| Network Setting | All Traffic, Anywhere   |
+| Storage         | 30 GB                   |
+
 ```
 # Install Minikube
 curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
