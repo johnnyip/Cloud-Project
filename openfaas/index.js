@@ -23,7 +23,7 @@ app.use(function addDefaultContentType(req, res, next) {
     console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
     console.log(`req method: ${req.method}`);
     console.log(`req url: ${req.url}`);
-    console.log('Request body:', JSON.stringify(req.body, null, 2));
+    console.log('Request body:', req.body);
 
 
 
