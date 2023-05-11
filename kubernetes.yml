@@ -174,7 +174,7 @@ spec:
   ports:
   - port: 8083
     targetPort: 8083
-    nodePort: 8083
+    nodePort: 30003
     protocol: TCP
     name: kafka-connect-mongo-port
   type: NodePort
