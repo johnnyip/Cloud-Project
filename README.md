@@ -113,6 +113,14 @@ faas-cli template pull
 faas-cli deploy -f openfaas.yml
 ```
 
+## Access through browser
+
+|          | URL                |
+| -------- | ------------------ |
+| Kafka-ui | <Public_URL>:30000 |
+| mongo-ui | <Public_URL>:30001 |
+| OpenFaaS | <Public_URL>:31112 |
+
 ## Show Status
 
 ```
