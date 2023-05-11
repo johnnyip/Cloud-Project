@@ -11,7 +11,7 @@
 | Kafka-ui      | provectuslabs/kafka-ui:latest       | UI tool for Kafka, view topics and messages in browser            |
 | Kafka-connect | johnnyip/cloud-kafka-connect:latest | (1)Sync message to mongodb, (2)Send HTTP POST request to OpenFaaS |
 | mongodb       | mongo:latest                        | Message storage                                                   |
-| mongo-ui      |                                     | UI tool for Mongodb, view data in browser                         |
+| mongo-express | mongo-express:latest                | UI tool for Mongodb, view data in browser                         |
 | crawler       | johnnyip/cloud-crawler:latest       | Stream sample data (JSON) to Kafka every 10 sec                   |
 | OpenFaaS      | -                                   | Host and available for invoke of serverless function              |
 
@@ -24,7 +24,7 @@
 | Kafka-ui      | localhost:30000  | localhost:8080  | -                                                                  |
 | Kafka-connect | -                | -               | -                                                                  |
 | mongodb       | -                | localhost:27017 | mongodb.default.svc.cluster.local:27017                            |
-| mongo-ui      | localhost:8081   | localhost:8081  |                                                                    |
+| mongo-express | localhost:8081   | localhost:8081  |                                                                    |
 | crawler       | -                | -               | -                                                                  |
 | OpenFaaS      | localhost:31112  | localhost:31112 | gateway-external.openfaas.svc.cluster.local:8080/function/openfaas |
 
@@ -98,7 +98,9 @@ echo $PASSWORD
 
 kubectl create configmap openfaas-password --from-literal=PASSWORD=${PASSWORD}
 ```
+
 ## Start the services
+
 ```
 
 # Download .yaml
@@ -109,13 +111,17 @@ curl -fsSL -o openfaas.yml https://raw.githubusercontent.com/johnnyip/Cloud-Proj
 faas-cli template pull
 faas-cli deploy -f openfaas.yml
 ```
+
 ## Show Status
+
 ```
 minikube service list
 kubectl get svc
 kubectl get po
 ```
+
 ## Kubectl
+
 ```
 # Remove deployment
 kubectl delete -f kubernetes.yml
@@ -123,7 +129,9 @@ kubectl delete -f kubernetes.yml
 # Show logs
 kubectl logs <pod name>
 ```
+
 ## OpenFaaS
+
 ```
 # Image preparation
 faas-cli up -f openfaas.yml

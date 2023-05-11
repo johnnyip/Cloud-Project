@@ -243,7 +243,7 @@ spec:
         - name: mongo-express
           ports:
             - containerPort: 8081
-          image: mongo-express
+          image: mongo-express:latest
           env:
             - name: ME_CONFIG_MONGODB_URL
               value: "mongodb://mongodb.default.svc.cluster.local:27017"
