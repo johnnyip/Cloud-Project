@@ -95,6 +95,7 @@ sleep 5
 PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
 echo -n $PASSWORD | faas-cli login --username admin --password-stdin
 
+# Password will be printed. Use this in the future (Access through browser)
 echo $PASSWORD
 
 # Pass the password environment variable to the kubernetes file
@@ -115,11 +116,11 @@ faas-cli deploy -f openfaas.yml
 
 ## Access through browser
 
-|          | URL                |
-| -------- | ------------------ |
-| Kafka-ui | <Public_URL>:30000 |
-| mongo-ui | <Public_URL>:30001 |
-| OpenFaaS | <Public_URL>:31112 |
+|          | URL                | Note                                               |
+| -------- | ------------------ | -------------------------------------------------- |
+| Kafka-ui | <Public_URL>:30000 |                                                    |
+| mongo-ui | <Public_URL>:30001 |                                                    |
+| OpenFaaS | <Public_URL>:31112 | Username: admin<br /> Password: <Printed_In_Above> |
 
 ## Show Status
 
