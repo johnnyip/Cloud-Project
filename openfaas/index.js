@@ -19,7 +19,6 @@ const jsonLimit = process.env.MAX_JSON_SIZE || defaultMaxSize
 app.use(function addDefaultContentType(req, res, next) {
     // When no content-type is given, the body element is set to 
     // nil, and has been a source of contention for new users.
-    console.log(`req: ${JSON.stringify(req, null, 2)}`);
     if(!req.headers['content-type']) {
         req.headers['content-type'] = "text/plain"
     }
@@ -33,6 +32,12 @@ if (process.env.RAW_BODY === 'true') {
     app.use(bodyParser.json({ limit: jsonLimit}));
     app.use(bodyParser.urlencoded({ extended: true }));
 }
+
+console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
+console.log(`req method: ${req.method}`);
+console.log(`req url: ${req.url}`);
+console.log('Request body:', JSON.stringify(req.body, null, 2));
+
 
 const isArray = (a) => {
     return (!!a) && (a.constructor === Array);
