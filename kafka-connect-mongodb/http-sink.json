@@ -8,8 +8,16 @@
         "headers": "Content-Type:application/json",
         "method": "POST",
         "confluent.topic.bootstrap.servers": "http://kafka.default.svc.cluster.local:9092",
+        "errors.deadletterqueue.topic.replication.factor": "1",
         "confluent.topic.replication.factor": "1",
+        "reporter.error.topic.replication.factor": "1",
+        "reporter.result.topic.replication.factor": "1",
         "bootstrap.servers": "http://kafka.default.svc.cluster.local:9092",
-        "reporter.bootstrap.servers": "http://kafka.default.svc.cluster.local:9092"
+        "reporter.bootstrap.servers": "http://kafka.default.svc.cluster.local:9092",
+        "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "key.converter.schemas.enable": "false",
+        "value.converter.schemas.enable": "false"
+
     }
 }

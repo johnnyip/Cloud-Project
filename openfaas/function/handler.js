@@ -6,6 +6,7 @@ const mongoCollectionName = process.env.MONGO_COLLECTION_NAME || 'test-collectio
 
 module.exports = async (event, context) => {
     // The Kafka message is supplied in the event parameter
+    console.log(`Event: ${JSON.stringify(event)}`)
     const message = event.body;
 
     console.log(`Kafka message: ${message}`);
