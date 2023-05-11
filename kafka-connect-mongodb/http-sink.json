@@ -8,6 +8,10 @@
         "headers": "Authorization: Basic admin:{{OPENFAAS_PASSWORD}},Content-Type:application/json",
         "method": "POST",
         "confluent.topic.bootstrap.servers": "kafka.default.svc.cluster.local:9092",
-        "confluent.topic.replication.factor": "1"
+        "confluent.topic.replication.factor": "1",
+        "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "key.converter.schemas.enable": "false",
+        "value.converter.schemas.enable": "false"
     }
 }
