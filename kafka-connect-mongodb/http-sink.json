@@ -5,14 +5,11 @@
         "tasks.max": "1",
         "topics": "test_topic",
         "http.api.url": "http://gateway-external.openfaas.svc.cluster.local:8080/function/openfaas",
-        "headers": "Authorization: Basic admin:{{OPENFAAS_PASSWORD}},Content-Type:application/json",
+        "headers": "Content-Type:application/json",
         "method": "POST",
-        "confluent.topic.bootstrap.servers": "kafka.default.svc.cluster.local:9092",
+        "confluent.topic.bootstrap.servers": "http://kafka.default.svc.cluster.local:9092",
         "confluent.topic.replication.factor": "1",
-        "bootstrap.servers": "['kafka.default.svc.cluster.local:9092']",
-        "key.converter": "org.apache.kafka.connect.json.JsonConverter",
-        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
-        "key.converter.schemas.enable": "false",
-        "value.converter.schemas.enable": "false"
+        "bootstrap.servers": "http://kafka.default.svc.cluster.local:9092",
+        "reporter.bootstrap.servers": "http://kafka.default.svc.cluster.local:9092"
     }
 }
