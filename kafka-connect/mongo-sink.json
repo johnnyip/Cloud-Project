@@ -6,7 +6,7 @@
         "topics": "test_topic",
         "connection.uri": "{{MONGODB_URL}}",
         "database": "kafka",
-        "collection": "kafka_connect_mongo",
+        "collection": "Kafka_Connect_Mongo",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "key.converter.schemas.enable": "false",

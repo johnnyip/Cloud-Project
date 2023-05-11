@@ -27,8 +27,8 @@ services:
     ports:
       - "8080:8080"
 
-  kafka-connect-mongo:
-    image: johnnyip/cloud-kafka-connect-mongodb:latest
+  kafka-connect:
+    image: johnnyip/cloud-kafka-connect:latest
     depends_on:
       - kafka
       - mongodb
@@ -39,9 +39,9 @@ services:
     environment:
       - MONGODB_URL=mongodb://mongodb:27017
       - CONNECT_BOOTSTRAP_SERVERS=kafka:9092
-      - CONNECT_REST_ADVERTISED_HOST_NAME=kafka-connect-mongo
+      - CONNECT_REST_ADVERTISED_HOST_NAME=kafka-connect
       - CONNECT_REST_ADVERTISED_PORT=8083
-
+      - PASSWORD=${PASSWORD}
 
   mongodb:
     image: mongo:latest
