@@ -6,7 +6,6 @@ const topicName = "test_topic"
 const admin = new kafka.Admin(client);
 
 const sendMessage = require('./sendMessage');
-const mongodbInit = require('./mongodb');
 
 console.log("host: " + process.env.KAFKA_URL)
 
@@ -26,8 +25,6 @@ admin.createTopics(topicsToCreate, (err, result) => {
     }
     client.close();
 });
-
-mongodbInit();
 
 //Post request with json body, with axois, to deploy sink config
 //Loop until not refused
