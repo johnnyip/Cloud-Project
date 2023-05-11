@@ -1,7 +1,24 @@
+# Project of CSIT6000O - Advanced Cloud Computing, 2023 Spring
+
 [Example Streaming data](https://data.gov.hk/tc-data/dataset/hk-hko-rss-smart-lamppost-weather-data/resource/eae90458-96ef-4b05-9222-b1ee4fff3487)
 
-| All Service   | K8s External URL | Docker URL      | K8s Internal URL                                                   | 
-|---------------|------------------|-----------------|--------------------------------------------------------------------|
+## Services Introduction
+
+| All Service   | Docker Image Name                   | Notes                                                             |
+| ------------- | ----------------------------------- | ----------------------------------------------------------------- |
+| Zookeeper     | bitnami/zookeeper:latest            |                                                                   |
+| Kafka         | bitnami/kafka:latest                |                                                                   |
+| Kafka-ui      | provectuslabs/kafka-ui:latest       | UI tool for Kafka, view topics and messages in browser            |
+| Kafka-connect | johnnyip/cloud-kafka-connect:latest | (1)Sync message to mongodb, (2)Send HTTP POST request to OpenFaaS |
+| mongodb       | mongo:latest                        | Message storage                                                   |
+| mongo-ui      |                                     | UI tool for Mongodb, view data in browser                         |
+| crawler       | johnnyip/cloud-crawler:latest       | Stream sample data (JSON) to Kafka every 10 sec                   |
+| OpenFaaS      | -                                   | Host and available for invoke of serverless function              |
+
+## Services Specification
+
+| All Service   | K8s External URL | Docker URL      | K8s Internal URL                                                   |
+| ------------- | ---------------- | --------------- | ------------------------------------------------------------------ |
 | Zookeeper     | -                | -               | -                                                                  |
 | Kafka         | -                | kafka:9092      | kafka.default.svc.cluster.local:9092                               |
 | Kafka-ui      | localhost:30000  | localhost:8080  | -                                                                  |
@@ -11,25 +28,17 @@
 | crawler       | -                | -               | -                                                                  |
 | OpenFaaS      | localhost:31112  | localhost:31112 | gateway-external.openfaas.svc.cluster.local:8080/function/openfaas |
 
-| All Service   | Docker Image Name                   | Notes                                                                     |
-|---------------|-------------------------------------|---------------------------------------------------------------------------|
-| Zookeeper     | bitnami/zookeeper:latest            |                                                                           |
-| Kafka         | bitnami/kafka:latest                |                                                                           |
-| Kafka-ui      | provectuslabs/kafka-ui:latest       | UI tool for Kafka, view topics and messages in browser                    |
-| Kafka-connect | johnnyip/cloud-kafka-connect:latest | - Sync message to mongodb - Send HTTP POST request to serverless function |
-| mongodb       | mongo:latest                        | Message storage                                                           |
-| mongo-ui      |                                     | UI tool for Mongodb, view data in browser                                 |
-| crawler       | johnnyip/cloud-crawler:latest       | Stream sample data (JSON) to Kafka every 10 sec                           |
-| OpenFaaS      | -                                   | Host and available for invoke of serverless function                      |
-
 ## Start in Docker
+
+OpenFaaS may not be available in Docker only environment. If OpenFaaS is available, modify the docker-compose.yml file to include the admin login password.
 
 ```
 docker compose up
 ```
 
 ## Install ans Start scripts for kubernetes
-If using AWS, make sure greater than 8 GB storage (Can be 30 GB)
+
+If using AWS EC2, make sure greater than 8 GB storage (Recommend: 30 GB)
 
 ```
 # Install Minikube
@@ -89,10 +98,7 @@ echo $PASSWORD
 
 kubectl create configmap openfaas-password --from-literal=PASSWORD=${PASSWORD}
 ```
-
-
 ## Start the services
-
 ```
 
 # Download .yaml
@@ -103,16 +109,12 @@ curl -fsSL -o openfaas.yml https://raw.githubusercontent.com/johnnyip/Cloud-Proj
 faas-cli template pull
 faas-cli deploy -f openfaas.yml
 ```
-
-
-
 ## Show Status
 ```
 minikube service list
 kubectl get svc
 kubectl get po
 ```
-
 ## Kubectl
 ```
 # Remove deployment
@@ -121,8 +123,7 @@ kubectl delete -f kubernetes.yml
 # Show logs
 kubectl logs <pod name>
 ```
-
-## OpenFaaS 
+## OpenFaaS
 ```
 # Image preparation
 faas-cli up -f openfaas.yml
