@@ -26,7 +26,8 @@ app.use(function addDefaultContentType(req, res, next) {
 })
 
 
-bodyParser.json({ limit: jsonLimit })
+app.use(bodyParser.json());
+app.use(middleware);
 
 // if (process.env.RAW_BODY === 'true') {
 //     app.use(bodyParser.raw({ type: '*/*', limit: rawLimit }))
