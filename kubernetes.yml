@@ -158,7 +158,8 @@ spec:
             - name: CONNECT_BOOTSTRAP_SERVERS
               value: "kafka.default.svc.cluster.local:9092"
             - name: CONNECT_REST_ADVERTISED_HOST_NAME
-              value: "kafka-connect-mongo.default.svc.cluster.local"
+              # value: "kafka-connect-mongo.default.svc.cluster.local"
+              value: "localhost"
             - name: CONNECT_REST_ADVERTISED_PORT
               value: "8083"
           envFrom:
@@ -174,7 +175,7 @@ spec:
   ports:
   - port: 8083
     targetPort: 8083
-    nodePort: 30003
+    nodePort: 8083
     protocol: TCP
     name: kafka-connect-mongo-port
   type: NodePort

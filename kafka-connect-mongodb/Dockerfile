@@ -2,6 +2,7 @@ FROM confluentinc/cp-kafka-connect:latest
 
 # Install the MongoDB Connector for Apache Kafka
 RUN confluent-hub install --no-prompt mongodb/kafka-connect-mongodb:latest
+RUN confluent-hub install --no-prompt confluentinc/kafka-connect-http:latest
 
 # Set environment variables
 ENV CONNECT_GROUP_ID=test_group \
