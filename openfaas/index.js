@@ -19,7 +19,7 @@ const jsonLimit = process.env.MAX_JSON_SIZE || defaultMaxSize
 app.use(function addDefaultContentType(req, res, next) {
     // When no content-type is given, the body element is set to 
     // nil, and has been a source of contention for new users.
-    console.log(`req: ${req}`)
+    console.log(`req: ${JSON.stringify(req, null, 2)}`);
     if(!req.headers['content-type']) {
         req.headers['content-type'] = "text/plain"
     }
