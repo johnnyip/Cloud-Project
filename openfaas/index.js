@@ -19,14 +19,6 @@ const jsonLimit = process.env.MAX_JSON_SIZE || defaultMaxSize
 app.use(function addDefaultContentType(req, res, next) {
     // When no content-type is given, the body element is set to 
     // nil, and has been a source of contention for new users.
-
-    console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
-    console.log(`req method: ${req.method}`);
-    console.log(`req url: ${req.url}`);
-    console.log('Request body:', req.body);
-
-
-
     if (!req.headers['content-type']) {
         req.headers['content-type'] = "text/plain"
     }
@@ -107,6 +99,13 @@ class FunctionContext {
 }
 
 const middleware = async (req, res) => {
+
+
+    console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
+    console.log(`req method: ${req.method}`);
+    console.log(`req url: ${req.url}`);
+    console.log('Request body:', req.body);
+
 
     const cb = (err, functionResult) => {
         if (err) {
