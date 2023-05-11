@@ -150,6 +150,7 @@ spec:
       containers:
         - name: kafka-connect-mongo
           image: johnnyip/cloud-kafka-connect-mongodb
+          imagePullPolicy: "Always"
           ports:
           - containerPort: 8083
           env:
@@ -284,6 +285,7 @@ spec:
       containers:
         - name: crawler
           image: johnnyip/cloud-crawler
+          imagePullPolicy: "Always"
           env:
             - name: KAFKA_URL
               value: "kafka.default.svc.cluster.local:9092"
