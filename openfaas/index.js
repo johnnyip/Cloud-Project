@@ -100,7 +100,7 @@ class FunctionContext {
 
 const middleware = async (req, res) => {
 
-
+    console.log('Objects:', Object.keys(req));
     console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
     console.log(`req method: ${req.method}`);
     console.log(`req url: ${req.url}`);
