@@ -4,16 +4,16 @@
 
 ## Services Introduction
 
-| All Service   | Docker Image Name                                                                            | Notes                                                                 |
-| ------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| Zookeeper     | [bitnami/zookeeper:latest](https://hub.docker.com/r/bitnami/zookeeper)                       | Managing Kafka                                                        |
-| Kafka         | [bitnami/kafka:latest](https://hub.docker.com/r/bitnami/kafka)                               | Real-time data pipeline                                               |
-| Kafka-ui      | [provectuslabs/kafka-ui:latest](https://hub.docker.com/r/provectuslabs/kafka-ui)             | UI tool for Kafka, view topics and messages in browser                |
-| Kafka-connect | [johnnyip/cloud-kafka-connect:latest](https://hub.docker.com/r/johnnyip/cloud-kafka-connect) | (1)Sync message to mongodb, <br/(2)Send HTTP POST request to OpenFaaS |
-| mongodb       | [mongo:latest](https://hub.docker.com/_/mongo)                                               | Message storage                                                       |
-| mongo-express | [mongo-express:latest](https://hub.docker.com/_/mongo-express)                               | UI tool for Mongodb, view data in browser                             |
-| crawler       | [johnnyip/cloud-crawler:latest](https://hub.docker.com/r/johnnyip/cloud-crawler)             | Stream sample data (JSON) to Kafka every 10 sec                       |
-| OpenFaaS      | [johnnyip/openfaas:latest](https://hub.docker.com/r/johnnyip/openfaas)                       | Host and available for invoke of serverless function                  |
+| All Service   | Docker Image Name                                                                            | Notes                                                                   |
+| ------------- | -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Zookeeper     | [bitnami/zookeeper:latest](https://hub.docker.com/r/bitnami/zookeeper)                       | Managing Kafka                                                          |
+| Kafka         | [bitnami/kafka:latest](https://hub.docker.com/r/bitnami/kafka)                               | Real-time data pipeline                                                 |
+| Kafka-ui      | [provectuslabs/kafka-ui:latest](https://hub.docker.com/r/provectuslabs/kafka-ui)             | UI tool for Kafka, view topics and messages in browser                  |
+| Kafka-connect | [johnnyip/cloud-kafka-connect:latest](https://hub.docker.com/r/johnnyip/cloud-kafka-connect) | (1)Sync message to mongodb, <br/> (2)Send HTTP POST request to OpenFaaS |
+| mongodb       | [mongo:latest](https://hub.docker.com/_/mongo)                                               | Message storage                                                         |
+| mongo-express | [mongo-express:latest](https://hub.docker.com/_/mongo-express)                               | UI tool for Mongodb, view data in browser                               |
+| crawler       | [johnnyip/cloud-crawler:latest](https://hub.docker.com/r/johnnyip/cloud-crawler)             | Stream sample data (JSON) to Kafka every 10 sec                         |
+| OpenFaaS      | [johnnyip/openfaas:latest](https://hub.docker.com/r/johnnyip/openfaas)                       | Host and available for invoke of serverless function                    |
 
 ## Services Specification
 
