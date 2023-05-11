@@ -19,19 +19,30 @@ const jsonLimit = process.env.MAX_JSON_SIZE || defaultMaxSize
 app.use(function addDefaultContentType(req, res, next) {
     // When no content-type is given, the body element is set to 
     // nil, and has been a source of contention for new users.
+
+    console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
+    console.log(`req method: ${req.method}`);
+    console.log(`req url: ${req.url}`);
+    console.log('Request body:', JSON.stringify(req.body, null, 2));
+
+
+
     if (!req.headers['content-type']) {
         req.headers['content-type'] = "text/plain"
     }
     next()
 })
 
-if (process.env.RAW_BODY === 'true') {
-    app.use(bodyParser.raw({ type: '*/*', limit: rawLimit }))
-} else {
-    app.use(bodyParser.text({ type: "text/*" }));
-    app.use(bodyParser.json({ limit: jsonLimit }));
-    app.use(bodyParser.urlencoded({ extended: true }));
-}
+
+bodyParser.json({ limit: jsonLimit })
+
+// if (process.env.RAW_BODY === 'true') {
+//     app.use(bodyParser.raw({ type: '*/*', limit: rawLimit }))
+// } else {
+//     app.use(bodyParser.text({ type: "text/*" }));
+//     app.use(bodyParser.json({ limit: jsonLimit }));
+//     app.use(bodyParser.urlencoded({ extended: true }));
+// }
 
 
 const isArray = (a) => {
@@ -96,11 +107,6 @@ class FunctionContext {
 }
 
 const middleware = async (req, res) => {
-
-    console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
-    console.log(`req method: ${req.method}`);
-    console.log(`req url: ${req.url}`);
-    console.log('Request body:', JSON.stringify(req.body, null, 2));
 
     const cb = (err, functionResult) => {
         if (err) {
