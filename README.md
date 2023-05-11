@@ -30,7 +30,8 @@
 
 ## Start in Docker
 
-OpenFaaS may not be available in Docker only environment. If OpenFaaS is available, modify the docker-compose.yml file to include the admin login password.
+OpenFaaS may not be available in Docker only environment.
+If OpenFaaS is available, modify the docker-compose.yml file to include the admin login password, and the correct invoke URL.
 
 ```
 docker compose up
