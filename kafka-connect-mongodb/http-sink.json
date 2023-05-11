@@ -9,7 +9,7 @@
         "method": "POST",
         "confluent.topic.bootstrap.servers": "kafka.default.svc.cluster.local:9092",
         "confluent.topic.replication.factor": "1",
-        "bootstrap.servers": "kafka.default.svc.cluster.local:9092",
+        "bootstrap.servers": "['kafka.default.svc.cluster.local:9092']",
         "key.converter": "org.apache.kafka.connect.json.JsonConverter",
         "value.converter": "org.apache.kafka.connect.json.JsonConverter",
         "key.converter.schemas.enable": "false",
