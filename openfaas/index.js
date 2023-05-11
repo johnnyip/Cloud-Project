@@ -19,24 +19,19 @@ const jsonLimit = process.env.MAX_JSON_SIZE || defaultMaxSize
 app.use(function addDefaultContentType(req, res, next) {
     // When no content-type is given, the body element is set to 
     // nil, and has been a source of contention for new users.
-    if(!req.headers['content-type']) {
+    if (!req.headers['content-type']) {
         req.headers['content-type'] = "text/plain"
     }
     next()
 })
 
 if (process.env.RAW_BODY === 'true') {
-    app.use(bodyParser.raw({ type: '*/*' , limit: rawLimit }))
+    app.use(bodyParser.raw({ type: '*/*', limit: rawLimit }))
 } else {
-    app.use(bodyParser.text({ type : "text/*" }));
-    app.use(bodyParser.json({ limit: jsonLimit}));
+    app.use(bodyParser.text({ type: "text/*" }));
+    app.use(bodyParser.json({ limit: jsonLimit }));
     app.use(bodyParser.urlencoded({ extended: true }));
 }
-
-console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
-console.log(`req method: ${req.method}`);
-console.log(`req url: ${req.url}`);
-console.log('Request body:', JSON.stringify(req.body, null, 2));
 
 
 const isArray = (a) => {
@@ -66,7 +61,7 @@ class FunctionContext {
     }
 
     status(statusCode) {
-        if(!statusCode) {
+        if (!statusCode) {
             return this.statusCode;
         }
 
@@ -75,12 +70,12 @@ class FunctionContext {
     }
 
     headers(value) {
-        if(!value) {
+        if (!value) {
             return this.headerValues;
         }
 
         this.headerValues = value;
-        return this;    
+        return this;
     }
 
     succeed(value) {
@@ -91,7 +86,7 @@ class FunctionContext {
 
     fail(value) {
         let message;
-        if(this.status() == "200") {
+        if (this.status() == "200") {
             this.status(500)
         }
 
@@ -101,6 +96,12 @@ class FunctionContext {
 }
 
 const middleware = async (req, res) => {
+
+    console.log(`req headers: ${JSON.stringify(req.headers, null, 2)}`);
+    console.log(`req method: ${req.method}`);
+    console.log(`req url: ${req.url}`);
+    console.log('Request body:', JSON.stringify(req.body, null, 2));
+
     const cb = (err, functionResult) => {
         if (err) {
             console.error(err);
@@ -109,7 +110,7 @@ const middleware = async (req, res) => {
                 .send(err.toString ? err.toString() : err);
         }
 
-        if(isArray(functionResult) || isObject(functionResult)) {
+        if (isArray(functionResult) || isObject(functionResult)) {
             res.set(fnContext.headers())
                 .status(fnContext.status()).send(JSON.stringify(functionResult));
         } else {
@@ -123,14 +124,14 @@ const middleware = async (req, res) => {
     const fnContext = new FunctionContext(cb);
 
     Promise.resolve(handler(fnEvent, fnContext, cb))
-    .then(res => {
-        if(!fnContext.cbCalled) {
-            fnContext.succeed(res);
-        }
-    })
-    .catch(e => {
-        cb(e);
-    });
+        .then(res => {
+            if (!fnContext.cbCalled) {
+                fnContext.succeed(res);
+            }
+        })
+        .catch(e => {
+            cb(e);
+        });
 };
 
 app.post('/*', middleware);
