@@ -17,16 +17,16 @@
 
 ## Services Specification
 
-| All Service   | K8s External URL | Docker URL      | K8s Internal URL                                                   |
-| ------------- | ---------------- | --------------- | ------------------------------------------------------------------ |
-| Zookeeper     | -                | -               | -                                                                  |
-| Kafka         | -                | kafka:9092      | kafka.default.svc.cluster.local:9092                               |
-| Kafka-ui      | localhost:30000  | localhost:8080  | -                                                                  |
-| Kafka-connect | -                | -               | -                                                                  |
-| mongodb       | -                | localhost:27017 | mongodb.default.svc.cluster.local:27017                            |
-| mongo-express | localhost:8081   | localhost:8081  |                                                                    |
-| crawler       | -                | -               | -                                                                  |
-| OpenFaaS      | localhost:31112  | localhost:31112 | gateway-external.openfaas.svc.cluster.local:8080/function/openfaas |
+| All Service   | Docker URL      | K8s External URL | K8s Internal URL                                                   |
+| ------------- | --------------- | ---------------- | ------------------------------------------------------------------ |
+| Zookeeper     | -               | -                | -                                                                  |
+| Kafka         | kafka:9092      | -                | kafka.default.svc.cluster.local:9092                               |
+| Kafka-ui      | localhost:8080  | localhost:30000  | -                                                                  |
+| Kafka-connect | -               | -                | -                                                                  |
+| mongodb       | localhost:27017 | -                | mongodb.default.svc.cluster.local:27017                            |
+| mongo-express | localhost:8081  | localhost:30001  |                                                                    |
+| crawler       | -               | -                | -                                                                  |
+| OpenFaaS      | localhost:31112 | localhost:31112  | gateway-external.openfaas.svc.cluster.local:8080/function/openfaas |
 
 ## Start in Docker
 
@@ -91,20 +91,20 @@ export OPENFAAS_URL=http://127.0.0.1:31112
 
 sleep 5
 
-# If basic auth is enabled, you can now log into your gateway:
+# FaaS gateway login
 PASSWORD=$(kubectl get secret -n openfaas basic-auth -o jsonpath="{.data.basic-auth-password}" | base64 --decode; echo)
 echo -n $PASSWORD | faas-cli login --username admin --password-stdin
 
 echo $PASSWORD
 
+# Pass the password environment variable to the kubernetes file
 kubectl create configmap openfaas-password --from-literal=PASSWORD=${PASSWORD}
 ```
 
 ## Start the services
 
 ```
-
-# Download .yaml
+# Download .yml
 curl -fsSL -o kubernetes.yml https://raw.githubusercontent.com/johnnyip/Cloud-Project/main/kubernetes.yml
 kubectl apply -f kubernetes.yml
 
