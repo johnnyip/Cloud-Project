@@ -1,5 +1,16 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/Ha6DivV4)
 [Example Streaming data](https://data.gov.hk/tc-data/dataset/hk-hko-rss-smart-lamppost-weather-data/resource/eae90458-96ef-4b05-9222-b1ee4fff3487)
+
+| All Service   | Docker Image Name                   | Docker URL      | K8s External URL | K8s Internal URL                                                          | Notes                                                                     |
+|---------------|-------------------------------------|-----------------|------------------|---------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| Zookeeper     | bitnami/zookeeper:latest            | -               | -                | -                                                                         |                                                                           |
+| Kafka         | bitnami/kafka:latest                | kafka:9092      | -                | kafka.default.svc.cluster.local:9092                                      |                                                                           |
+| Kafka-ui      | provectuslabs/kafka-ui:latest       | localhost:8080  | localhost:30000  | -                                                                         | UI tool for Kafka, view topics and messages in browser                    |
+| Kafka-connect | johnnyip/cloud-kafka-connect:latest | -               | -                | -                                                                         | - Sync message to mongodb - Send HTTP POST request to serverless function |
+| mongodb       | mongo:latest                        | localhost:27017 | -                | mongodb.default.svc.cluster.local:27017                                   | Message storage                                                           |
+| mongo-ui      |                                     | localhost:8081  | localhost:8081   |                                                                           | UI tool for Mongodb, view data in browser                                 |
+| crawler       | johnnyip/cloud-crawler:latest       | -               | -                | -                                                                         | Stream sample data (JSON) to Kafka every 10 sec                           |
+| OpenFaaS      | -                                   | localhost:31112 | localhost:31112  | http://gateway-external.openfaas.svc.cluster.local:8080/function/openfaas | Host and available for invoke of serverless function                      |
+
 
 ## Start in Docker
 
@@ -83,11 +94,6 @@ faas-cli template pull
 faas-cli deploy -f openfaas.yml
 ```
 
-
-| Service    | Kafka                              | Kafka-ui        | mongo-ui        |
-| ---------- | ---------------------------------- | --------------- | --------------- |
-| Docker URL | kafka:9092                         | localhost:8080  | localhost:8081  |
-| K8s URL    | kafka.kafka.svc.cluster.local:9092 | <Public_IP>:30000 | <Public_IP>:30001 |
 
 
 ## Show Status

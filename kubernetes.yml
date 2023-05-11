@@ -38,7 +38,6 @@ spec:
   ports:
     - port: 2181
       targetPort: 2181
-      # nodePort: 32181
       protocol: TCP
       name: zk-port
   type: NodePort
@@ -140,16 +139,16 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: kafka-connect-mongo
+      app: kafka-connect
   template:
     metadata:
       labels:
-        app: kafka-connect-mongo
+        app: kafka-connect
     spec:
       restartPolicy: Always
       containers:
-        - name: kafka-connect-mongo
-          image: johnnyip/cloud-kafka-connect
+        - name: kafka-connect
+          image: johnnyip/cloud-kafka-connect:latest
           imagePullPolicy: "Always"
           ports:
             - containerPort: 8083
@@ -159,7 +158,7 @@ spec:
             - name: CONNECT_BOOTSTRAP_SERVERS
               value: "kafka.default.svc.cluster.local:9092"
             - name: CONNECT_REST_ADVERTISED_HOST_NAME
-              value: "kafka-connect-mongo.default.svc.cluster.local"
+              value: "kafka-connect.default.svc.cluster.local"
             - name: CONNECT_REST_ADVERTISED_PORT
               value: "8083"
             - name: OPENFAAS_URL
@@ -171,7 +170,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: kafka-connect-mongo
+  name: kafka-connect
   namespace: default
 spec:
   ports:
@@ -179,10 +178,10 @@ spec:
       targetPort: 8083
       nodePort: 8083
       protocol: TCP
-      name: kafka-connect-mongo-port
+      name: kafka-connect-port
   type: NodePort
   selector:
-    app: kafka-connect-mongo
+    app: kafka-connect
 
 ---
 apiVersion: apps/v1
