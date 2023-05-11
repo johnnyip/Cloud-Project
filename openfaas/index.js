@@ -26,15 +26,15 @@ app.use(function addDefaultContentType(req, res, next) {
 })
 
 
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 
-// if (process.env.RAW_BODY === 'true') {
-//     app.use(bodyParser.raw({ type: '*/*', limit: rawLimit }))
-// } else {
-//     app.use(bodyParser.text({ type: "text/*" }));
-//     app.use(bodyParser.json({ limit: jsonLimit }));
-//     app.use(bodyParser.urlencoded({ extended: true }));
-// }
+if (process.env.RAW_BODY === 'true') {
+    app.use(bodyParser.raw({ type: '*/*', limit: rawLimit }))
+} else {
+    app.use(bodyParser.text({ type: "text/*" }));
+    app.use(bodyParser.json({ limit: jsonLimit }));
+    app.use(bodyParser.urlencoded({ extended: true }));
+}
 
 
 const isArray = (a) => {
