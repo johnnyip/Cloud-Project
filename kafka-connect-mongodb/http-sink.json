@@ -5,6 +5,8 @@
         "tasks.max": "1",
         "topics": "test_topic",
         "http.api.url": "http://gateway-external.openfaas.svc.cluster.local:8080/function/openfaas",
+        "http.request.body": "KEY_AND_VALUE",
+        "http.request.body.format": "JSON",
         "headers": "Content-Type:application/json",
         "method": "POST",
         "confluent.topic.bootstrap.servers": "http://kafka.default.svc.cluster.local:9092",
