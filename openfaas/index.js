@@ -27,7 +27,6 @@ app.use(function addDefaultContentType(req, res, next) {
 
 
 app.use(bodyParser.json());
-app.use(middleware);
 
 // if (process.env.RAW_BODY === 'true') {
 //     app.use(bodyParser.raw({ type: '*/*', limit: rawLimit }))
@@ -139,6 +138,8 @@ const middleware = async (req, res) => {
             cb(e);
         });
 };
+
+app.use(middleware);
 
 app.post('/*', middleware);
 app.get('/*', middleware);
