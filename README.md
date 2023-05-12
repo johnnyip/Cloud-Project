@@ -2,7 +2,7 @@
 
 # Project of CSIT6000O - Advanced Cloud Computing, 2023 Spring
 
-This project is to reimplement the AWS data streaming serverless application architecture, with some open-source alternatives, including Apache Kafka, OpenFaaS and MongoDB.
+This project is to reimplement the AWS data streaming serverless application architecture ([Here](https://github.com/aws-samples/lambda-refarch-streamprocessing)), with some open-source alternatives, including Apache Kafka, OpenFaaS and MongoDB.
 
 Original architecture on AWS platform
 ![AWS](image/streamprocessing-diagram.png)
@@ -10,7 +10,7 @@ Original architecture on AWS platform
 Architecture after replaced with open-source alternatives
 ![Alternatives](image/architecture.png)
 
-All the services above can be deployed into Docker or Kubernetes environment, except OpenFaaS only support Kubernetes environment. 
+All the services above can be deployed into Docker or Kubernetes environment, except OpenFaaS only support Kubernetes environment.
 
 <!-- For more details, please check the project report here. -->
 
