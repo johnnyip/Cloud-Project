@@ -74,17 +74,6 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 # Install Docker
 sudo apt-get update && sudo apt-get install docker.io -y
 
-# Install conntrack
-sudo apt-get install -y conntrack
-
-# Install httping
-sudo apt-get install -y httping
-
-# Install helm
-curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-chmod 700 get_helm.sh
-./get_helm.sh
-
 sudo -i
 ```
 
