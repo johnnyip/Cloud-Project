@@ -7,7 +7,7 @@
 
 <hr/>
 
-This project is to reimplement the AWS data streaming serverless application architecture ([Here](https://github.com/aws-samples/lambda-refarch-streamprocessing)), with some open-source alternatives, including Apache Kafka, OpenFaaS and MongoDB.
+This project is to reimplement the AWS data streaming serverless application architecture ([Here](https://github.com/aws-samples/lambda-refarch-streamprocessing)), with some open-source alternatives, including Apache Kafka, OpenFaaS and MongoDB.<br/> Then make it deployable in Docker and Kubernetes environment.
 
 Original architecture on AWS platform
 ![AWS](image/streamprocessing-diagram.png)
@@ -56,7 +56,7 @@ If OpenFaaS is available, modify the docker-compose.yml file to include the admi
 docker compose up
 ```
 
-## Install ans Start scripts for kubernetes
+## Install & Start Scripts for Kubernetes
 
 If using AWS EC2, make sure greater than 8 GB storage (Recommend: 30 GB)
 
